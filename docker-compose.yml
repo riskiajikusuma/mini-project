@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  db-mini-project:
+    container_name: db-mini-project
+    image: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    ports:
+      - "3306:3306"
+    networks:
+      - network-mini-project
+  mini-project:
+    container_name: mini-project
+    restart: on-failure
+    build:
+      context: "./"
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: db-mini-project
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+    ports:
+      - "8080:8080"
+    networks:
+      - network-mini-project
+networks:
+  network-mini-project:
