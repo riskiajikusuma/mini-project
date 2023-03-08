@@ -38,7 +38,17 @@ DB_ROOT_PASSWORD=
 DB_DATABASE=
 ```
 2. Menjalankan aplikasi
-3. Via Maven
+- Via Maven
 ```shell
 mvn spring-boot:run 
+```
+- Jar File
+```shell
+mvn clean package -Dmaven.test.skip
+cd target
+java -jar cardless-withdrawal-0.0.1-SNAPSHOT.jar
+```
+- Via Docker
+```shell
+docker compose up -d
 ```
